@@ -1,0 +1,24 @@
+df <- read.csv('q4.csv')
+df
+
+#new <- data.frame(budget = c(4000,4500,5000,5500,6000,6500,10000,2000))
+#using inbuilt
+linear_model = lm(sales~budget)
+print(summary(linear_model))
+new = data.frame(budget = df$budget)
+prediction = predict(linear_model, new)
+prediction
+plot(df$budget, df$sales, col="red", abline(lm(df$sales~df$budget)))
+lines(df$budget, prediction, col="blue")
+
+#manually
+x_bar <- mean(df$budget)
+y_bar <- mean(df$sales)
+
+m1 <- sum((df$budget - x_bar)*(df$sales - y_bar))/sum((df$budget - x_bar)**2)
+m0 <- y_bar - m1*x_bar
+
+new_pred = m0 + m1*df$budget
+plot(df$budget, df$sales, col="red")
+lines(df$budget, new_pred, col="blue")
+
