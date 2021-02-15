@@ -1,26 +1,24 @@
-df <- read.csv('q5.csv')
-df
-model <- lm(Sales ~ TV + Radio, data=df)
-print(summary(model))
-df$pred_builtin = predict(model, data=df)
-df
-
-x1_bar = mean(df$TV)
-x2_bar = mean(df$Radio)
-y_bar = mean(df$Sales)
-
-b1 = sum((df$TV - x1_bar)*(df$Sales - y_bar))/sum((df$TV - x1_bar)**2)
-b2 = sum((df$Radio - x2_bar)*(df$Sales - y_bar))/sum((df$Radio - x2_bar)**2)
-b0 = y_bar - b1*x1_bar - b2*x2_bar
-
-df$pred_manual = b0 + b1*df$TV + b2*df$Radio
+df = data.frame(
+  sales = c(2,5,7,10,12,15,20),
+  budget_tv = c(5,15,25,30,35,50,100),
+  budget_radio = c(7,12,17,25,30,35,70)
+)
 df
 
-rss = sum((df$Sales - df$pred_manual)**2)
-tss = sum((df$Sales - y_bar)**2)
-rss
-tss
-se = 1-(rss/tss)
-se
-rse = rss/(nrow(df)-2)
-rse
+# a
+
+model = lm(df$sales ~ df$budget_tv + df$budget_radio)
+df$pred_builtin = predict(model, data = df)
+
+# b. Using normal equation method 
+
+x <- df[,2:3]
+x$intercept <- rep(1,nrow(df))
+x <- as.matrix(x)
+x_transpose = t(x)
+
+# inverse( X_transpose * X) * X_transpose  * y 
+coef <- solve( x_transpose %*% x ) %*% x_transpose %*% df$sales  
+df$pred <- coef[1]* df$budget_tv +  coef[2]*df$budget_radio + coef[3]
+
+df
