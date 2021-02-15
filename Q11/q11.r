@@ -11,7 +11,7 @@ labels <- colnames(df)[2:6]
 par(mfrow=c(1,3))
 for(row in 1:nrow(df)){
   x <- df[row, 2:6]
-  barplot(as.numeric(x), names.arg = x,  main = paste('Student',df[row,'name'],'marks distribution'), col = rainbow(length(x)))
+  barplot(as.numeric(x), names.arg = x,  main = paste('Student',df[row,1],'marks distribution'), col = rainbow(length(x)))
   legend("topright" ,legend = labels, fill = rainbow(length(x)))
 }
 
@@ -38,3 +38,4 @@ df <- data.frame(
 x<- c(mean(df[df$gender == 'M',]$marks1), mean(df[df$gender == 'F',]$marks1))
 barplot(x, names.arg = 'Marks 1 dist', col = rainbow(length(x)))
 legend("topright", legend = c("Boys", "Girls"), fill = rainbow(length(x)))
+

@@ -23,5 +23,8 @@ df <- data.frame(
   gender = c('M','M','F','F','M')
 )
 
-boxplot(df$marks1~df$gender, labels = c("Male", "Female"), main = "Performance of Boys vs Girls in Subject 1")
-boxplot(df$marks2~df$gender, labels = c("Male", "Female"), main = "Performance of Boys vs Girls in Subject 2", add = TRUE, border='red')
+boxplot(df$marks1~df$gender, names = c("Male", "Female"), main = "Performance of Boys vs Girls in Subject 1", ylab = "Marks", xlab = "Gender")
+
+boxplot(df$marks2~df$gender, names = c("Male", "Female"), main = "Performance of Boys vs Girls in Subject 2", add = TRUE, border='red')
+
+
